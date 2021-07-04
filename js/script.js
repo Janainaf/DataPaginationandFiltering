@@ -15,11 +15,17 @@ This function will create and insert/append the elements needed to display a "pa
 */
 
 function showPage() {
+  var list = [];
+  var page = 9;
   for (const student of data) {
-    console.log(student);
+    var studentImage = `<li class="student-item cf">
+    <div class="student-details"><img class="avatar" src="${student.picture.medium}" alt="Profile Picture">`;
+    var studentName = `<h3> ${student.name.first} </h3>`;
+    var studentEmail = `<span class="email"> ${student.email} </span>`;
+    list += studentImage + studentName + studentEmail + `</div></li>`;
   }
+  document.querySelector(".student-list").innerHTML = list;
 }
-
 showPage();
 /*
 Create the `addPagination` function
