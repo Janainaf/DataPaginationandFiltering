@@ -18,11 +18,12 @@ function showPage() {
   var list = [];
   var page = 9;
   for (const student of data) {
-    var studentImage = `<li class="student-item cf">
-    <div class="student-details"><img class="avatar" src="${student.picture.medium}" alt="Profile Picture">`;
-    var studentName = `<h3> ${student.name.first} </h3>`;
-    var studentEmail = `<span class="email"> ${student.email} </span>`;
-    list += studentImage + studentName + studentEmail + `</div></li>`;
+    list += `<li class="student-item cf">
+    <div class="student-details"><img class="avatar" src="${student.picture.medium}"alt="Profile Picture">
+    <h3> ${student.name.first} </h3>
+    <span class="email"> ${student.email} </span>
+    </div><div class="joined-details">
+    <span class="date"> ${student.registered.date}</span></div></li>`;
   }
   document.querySelector(".student-list").innerHTML = list;
 }
