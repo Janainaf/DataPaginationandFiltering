@@ -39,6 +39,18 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 
-function addPagination() {}
+function addPagination(list) {
+  var pages = list;
+  console.log(pages);
+  var linkPages = document.querySelector(".link-list").innerHTML;
+  linkPages.innerHTML = "";
+
+  for (let i = 1; i <= pages.length / 9 + 1; i++) {
+    linkPages += `<li> <button type="button"> ${i} </button></li>`;
+    document.querySelector(".link-list").innerHTML = linkPages;
+  }
+}
 
 // Call functions
+
+addPagination(data);
