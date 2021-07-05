@@ -19,20 +19,21 @@ function showPage(list, page) {
   var studentList = document.querySelector(".student-list").innerHTML;
   studentList.innerHTML = "";
 
-  for (var i = starIndex; i < list.length; i++) {
-    for (; i < endIndex; i++) {
+  for (let i = 0; i < list.length; i++) {
+    if (starIndex <= i && i < endIndex) {
       studentList += `<li class="student-item cf">
     <div class="student-details"><img class="avatar" src="${list[i].picture.medium}"alt="Profile Picture">
     <h3> ${list[i].name.first} </h3>
     <span class="email"> ${list[i].email} </span>
     </div><div class="joined-details">
     <span class="date"> ${list[i].registered.date}</span></div></li>`;
+      document.querySelector(".student-list").innerHTML = studentList;
     }
   }
-  document.querySelector(".student-list").innerHTML = studentList;
 }
 
-showPage(data, 1);
+showPage(data, 5);
+
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
