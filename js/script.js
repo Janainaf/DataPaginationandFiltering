@@ -40,33 +40,33 @@ This function will create and insert/append the elements needed for the paginati
 function addPagination(list) {
   var pages = list.length / 9 + 1;
   var linkPages = document.querySelector(".link-list").innerHTML;
-  linkPages.innerHTML = "";
 
   for (let i = 1; i <= pages; i++) {
-    linkPages += `<li> <button type="button"> ${i} </button></li>`;
-    document.querySelector(".link-list").innerHTML = linkPages;
+    if (i === 1) {
+      linkPages += `<li> <button type="button" class="active" > ${i} </button></li>`;
+      document.querySelector(".link-list").innerHTML = linkPages;
+    } else {
+      linkPages += `<li> <button type="button"> ${i} </button></li>`;
+      document.querySelector(".link-list").innerHTML = linkPages;
+    }
   }
 
   var btns = document.querySelectorAll("button");
-
+  console.log(btns);
   for (var i = 0; i < btns.length; i++) {
     btns[i].addEventListener("click", function () {
       var current = document.getElementsByClassName("active");
-      if (current.length > 0) {
-        current[0].className = current[0].className.replace("active", "");
-      }
+      current[0].className = current[0].className.replace("active", "");
       this.className += "active";
     });
   }
 
   document.querySelector(".link-list").addEventListener("click", (e) => {
     e.preventDefault();
-    showPage(
-      list,
-      document.querySelector(".pagination li .active").textContent
-    );
+    showPage(list, document.querySelector(".active").textContent);
   });
 }
 
 // Call functions
+showPage(data, 1);
 addPagination(data);
