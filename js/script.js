@@ -26,7 +26,7 @@ function showPage(list, page) {
     <h3> ${list[i].name.first} </h3>
     <span class="email"> ${list[i].email} </span>
     </div><div class="joined-details">
-    <span class="date"> ${list[i].registered.date}</span></div></li>`;
+    <span class="date"> Joined: ${list[i].registered.date}</span></div></li>`;
       document.querySelector(".student-list").innerHTML = studentList;
     }
   }
@@ -52,7 +52,6 @@ function addPagination(list) {
   }
 
   var btns = document.querySelectorAll("button");
-  console.log(btns);
   for (var i = 0; i < btns.length; i++) {
     btns[i].addEventListener("click", function () {
       var current = document.getElementsByClassName("active");
@@ -70,3 +69,14 @@ function addPagination(list) {
 // Call functions
 showPage(data, 1);
 addPagination(data);
+search();
+
+/*
+Create the `Search` Component
+This component will enable to search for students names
+*/
+function search() {
+  var str =
+    '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button></label>';
+  document.querySelector(".header").insertAdjacentHTML("beforeend", str);
+}
