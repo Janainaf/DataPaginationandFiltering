@@ -69,14 +69,37 @@ function addPagination(list) {
 // Call functions
 showPage(data, 1);
 addPagination(data);
-search();
+search(data);
 
 /*
 Create the `Search` Component
 This component will enable to search for students names
 */
-function search() {
+function search(list) {
   var str =
     '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button></label>';
   document.querySelector(".header").insertAdjacentHTML("beforeend", str);
+  var studentList = document.querySelector(".student-list").innerHTML;
+  studentList = " ";
+
+  const searchBar = document.getElementById("search");
+  searchBar.addEventListener("input", (e) => {
+    e.preventDefault();
+    const searchName = e.target.value;
+    console.log(searchName);
+    for (let i = 0; i < list.length; i++) {
+      if (
+        list[i].name.first.toLowerCase() == searchName ||
+        list[i].name.last.toLowerCase() == searchName
+      ) {
+        studentList += `<li class="student-item cf">
+    <div class="student-details"><img class="avatar" src="${list[i].picture.medium}"alt="Profile Picture">
+    <h3> ${list[i].name.first} </h3>
+    <span class="email"> ${list[i].email} </span>
+    </div><div class="joined-details">
+    <span class="date"> Joined: ${list[i].registered.date}</span></div></li>`;
+        document.querySelector(".student-list").innerHTML = studentList;
+      }
+    }
+  });
 }
