@@ -81,16 +81,15 @@ function search(list) {
   document.querySelector(".header").insertAdjacentHTML("beforeend", str);
   var studentList = document.querySelector(".student-list").innerHTML;
   studentList = " ";
-
+  const submit = document.querySelector("#sbutton");
   const searchBar = document.getElementById("search");
-  searchBar.addEventListener("input", (e) => {
-    e.preventDefault();
+  searchBar.addEventListener("keyup", (e) => {
+    studentList = " ";
     const searchName = e.target.value;
-    console.log(searchName);
     for (let i = 0; i < list.length; i++) {
       if (
-        list[i].name.first.toLowerCase() == searchName ||
-        list[i].name.last.toLowerCase() == searchName
+        list[i].name.first.toLowerCase().match(searchName.toLowerCase()) ||
+        list[i].name.last.toLowerCase().match(searchName.toLowerCase())
       ) {
         studentList += `<li class="student-item cf">
     <div class="student-details"><img class="avatar" src="${list[i].picture.medium}"alt="Profile Picture">
