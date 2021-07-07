@@ -76,20 +76,27 @@ This component will enable to search for students names
 
 function search(list) {
   var str =
-    '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button id="myBtn" type="button" ><img src="img/icn-search.svg" alt="Search icon"></button></label>';
+    '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button type="button" ><img src="img/icn-search.svg" alt="Search icon"></button></label>';
   document.querySelector(".header").insertAdjacentHTML("beforeend", str);
   var studentList = document.querySelector(".student-list").innerHTML;
+  const submitButton = document.querySelector("button");
+  const myInput = document.getElementById("search");
+  searchName = myInput.value;
 
-  const searchName = document
-    .getElementById("search")
-    .addEventListener("keyup", nameSearch);
+  submitButton.addEventListener("click", function (event) {
+    searchName = myInput.value;
+    nameSearch;
+  });
+  document.querySelector("button").addEventListener("click", nameSearch);
 
-  // const searchButton = document
-  //   .getElementById("search")
-  //   .addEventListener("click", nameSearch);
+  myInput.addEventListener("keyup", function (event) {
+    searchName = myInput.value;
+    nameSearch;
+  });
+  document.querySelector("button").addEventListener("click", nameSearch);
+  document.getElementById("search").addEventListener("keyup", nameSearch);
 
-  function nameSearch(e) {
-    const searchName = e.target.value;
+  function nameSearch() {
     listStudent = [];
     studentList = "";
 
@@ -107,7 +114,6 @@ function search(list) {
     <span class="date"> Joined: ${list[i].registered.date}</span></div></li>`;
         document.querySelector(".student-list").innerHTML = studentList;
       }
-      console.log(listStudent);
       addPagination(listStudent);
     }
     if (studentList === "") {
