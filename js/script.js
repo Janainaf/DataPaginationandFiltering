@@ -38,8 +38,8 @@ This function will create and insert/append the elements needed for the paginati
 */
 
 function addPagination(list) {
-  var pages = list.length / 9 + 1;
-  var linkPages = document.querySelector(".link-list").innerHTML;
+  var pages = Math.ceil(list.length / 9);
+  var linkPages = "";
 
   for (let i = 1; i <= pages; i++) {
     if (i === 1) {
@@ -51,7 +51,7 @@ function addPagination(list) {
     }
   }
 
-  var btns = document.querySelectorAll("button");
+  var btns = document.querySelectorAll(".link-list button");
   for (var i = 0; i < btns.length; i++) {
     btns[i].addEventListener("click", function () {
       var current = document.getElementsByClassName("active");
@@ -59,9 +59,7 @@ function addPagination(list) {
       this.className += "active";
     });
   }
-
-  document.querySelector(".link-list").addEventListener("click", (e) => {
-    e.preventDefault();
+  document.addEventListener("click", (e) => {
     showPage(list, document.querySelector(".active").textContent);
   });
 }
@@ -91,15 +89,16 @@ function search(list) {
   //   .addEventListener("click", nameSearch);
 
   function nameSearch(e) {
-    studentList = "";
-
     const searchName = e.target.value;
+    listStudent = [];
+    studentList = "";
 
     for (let i = 0; i < list.length; i++) {
       if (
         list[i].name.first.toLowerCase().match(searchName.toLowerCase()) ||
         list[i].name.last.toLowerCase().match(searchName.toLowerCase())
       ) {
+        listStudent.push(list[i]);
         studentList += `<li class="student-item cf">
     <div class="student-details"><img class="avatar" src="${list[i].picture.medium}"alt="Profile Picture">
     <h3> ${list[i].name.first} </h3>
@@ -108,6 +107,8 @@ function search(list) {
     <span class="date"> Joined: ${list[i].registered.date}</span></div></li>`;
         document.querySelector(".student-list").innerHTML = studentList;
       }
+      console.log(listStudent);
+      addPagination(listStudent);
     }
     if (studentList === "") {
       document.querySelector(
