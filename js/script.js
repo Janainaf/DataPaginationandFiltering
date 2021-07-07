@@ -78,15 +78,23 @@ This component will enable to search for students names
 
 function search(list) {
   var str =
-    '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button type="button"><img src="img/icn-search.svg" alt="Search icon"></button></label>';
+    '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button id="myBtn" type="button" ><img src="img/icn-search.svg" alt="Search icon"></button></label>';
   document.querySelector(".header").insertAdjacentHTML("beforeend", str);
   var studentList = document.querySelector(".student-list").innerHTML;
-  const submit = document.querySelector("#button");
-  const searchBar = document.getElementById("search");
 
-  searchBar.addEventListener("keyup", (e) => {
+  const searchName = document
+    .getElementById("search")
+    .addEventListener("keyup", nameSearch);
+
+  // const searchButton = document
+  //   .getElementById("search")
+  //   .addEventListener("click", nameSearch);
+
+  function nameSearch(e) {
     studentList = "";
+
     const searchName = e.target.value;
+
     for (let i = 0; i < list.length; i++) {
       if (
         list[i].name.first.toLowerCase().match(searchName.toLowerCase()) ||
@@ -98,8 +106,6 @@ function search(list) {
     <span class="email"> ${list[i].email} </span>
     </div><div class="joined-details">
     <span class="date"> Joined: ${list[i].registered.date}</span></div></li>`;
-      } else {
-        console.log("fail");
         document.querySelector(".student-list").innerHTML = studentList;
       }
     }
@@ -108,5 +114,5 @@ function search(list) {
         ".student-list"
       ).innerHTML = `<li class="student-item cf"><div><h3> Sorry, no match </h3></div></li>`;
     }
-  });
+  }
 }
