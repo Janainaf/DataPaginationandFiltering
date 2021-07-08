@@ -75,30 +75,20 @@ This component will enable to search for students names
 */
 
 function search(list) {
+  studentList = "";
   var str =
     '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button type="button" ><img src="img/icn-search.svg" alt="Search icon"></button></label>';
   document.querySelector(".header").insertAdjacentHTML("beforeend", str);
   var studentList = document.querySelector(".student-list").innerHTML;
-  const submitButton = document.querySelector("button");
   const myInput = document.getElementById("search");
-  searchName = myInput.value;
 
-  submitButton.addEventListener("click", function (event) {
-    searchName = myInput.value;
-    nameSearch;
-  });
   document.querySelector("button").addEventListener("click", nameSearch);
-
-  myInput.addEventListener("keyup", function (event) {
-    searchName = myInput.value;
-    nameSearch;
-  });
-  document.querySelector("button").addEventListener("click", nameSearch);
-  document.getElementById("search").addEventListener("keyup", nameSearch);
+  myInput.addEventListener("keyup", nameSearch);
 
   function nameSearch() {
-    listStudent = [];
     studentList = "";
+    searchName = myInput.value;
+    listStudent = [];
 
     for (let i = 0; i < list.length; i++) {
       if (
@@ -119,7 +109,7 @@ function search(list) {
     if (studentList === "") {
       document.querySelector(
         ".student-list"
-      ).innerHTML = `<li class="student-item cf"><div><h3> Sorry, no match </h3></div></li>`;
+      ).innerHTML = `<li class="student-item cf"><div><h3> Sorry, no matches </h3></div></li>`;
     }
   }
 }
