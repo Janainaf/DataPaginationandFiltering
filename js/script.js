@@ -41,10 +41,14 @@ function addPagination(list) {
   var pages = Math.ceil(list.length / 9);
   var linkPages = "";
 
+  // this condition was added to account for "no results" cases
+
   if (pages === 0) {
     linkPages += `<li> <button type="button" class="active" > 0 </button></li>`;
     document.querySelector(".link-list").innerHTML = linkPages;
   }
+
+  // this loop creates buttons according to the number of pages, and sets the first button as default active
 
   for (let i = 1; i <= pages; i++) {
     if (i === 1) {
@@ -55,6 +59,8 @@ function addPagination(list) {
       document.querySelector(".link-list").innerHTML = linkPages;
     }
   }
+
+  // this loop removes/add active class according to clicks on the button
 
   var btns = document.querySelectorAll(".link-list button");
   for (var i = 0; i < btns.length; i++) {
@@ -75,22 +81,28 @@ addPagination(data);
 search(data);
 
 /*
-Create the `Search` Component
-This component will enable to search for students names
-*/
+Create the `Search` function
+This function will enable to search for students names */
 
 function search(list) {
+  // str variable uses JavaScript to append HTML for a search bar.
   var str =
     '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button type="button" ><img src="img/icn-search.svg" alt="Search icon"></button></label>';
   document.querySelector(".header").insertAdjacentHTML("beforeend", str);
-  const myInput = document.getElementById("search");
 
+  // variable to register user input and set eventlisteners to call the function nameSearch
+
+  const myInput = document.getElementById("search");
   document.querySelector("button").addEventListener("click", nameSearch);
   myInput.addEventListener("keyup", nameSearch);
 
-  function nameSearch(listStudent) {
+  // This function uses input to search for correspondending students first and last names  */
+
+  function nameSearch() {
     searchName = myInput.value.toLowerCase();
     listStudent = [];
+
+    // Conditional to check for "no results" cases
 
     if (searchName.length > 0 && listStudent.length === 0) {
       listStudent.length = 0;
@@ -100,10 +112,13 @@ function search(list) {
       addPagination(listStudent);
     }
 
+    // Loop to check if input corresponds to a student name from the list.
+    // Could have been done with a for loop or other method like includes, or searching of index
+
     Array.from(list).forEach(function (student) {
       if (
-        student.name.first.toLowerCase().indexOf(searchName) !== -1 ||
-        student.name.last.toLowerCase().indexOf(searchName) !== -1
+        student.name.first.toLowerCase().match(searchName) ||
+        student.name.last.toLowerCase().match(searchName)
       ) {
         listStudent.push(student);
         showPage(listStudent, 1);
