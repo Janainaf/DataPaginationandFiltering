@@ -41,6 +41,11 @@ function addPagination(list) {
   var pages = Math.ceil(list.length / 9);
   var linkPages = "";
 
+  if (pages === 0) {
+    linkPages += `<li> <button type="button" class="active" > 0 </button></li>`;
+    document.querySelector(".link-list").innerHTML = linkPages;
+  }
+
   for (let i = 1; i <= pages; i++) {
     if (i === 1) {
       linkPages += `<li> <button type="button" class="active" > ${i} </button></li>`;
@@ -75,41 +80,35 @@ This component will enable to search for students names
 */
 
 function search(list) {
-  studentList = "";
   var str =
     '<label for="search" class="student-search"><span>Search by name</span> <input id="search" placeholder="Search by name..."> <button type="button" ><img src="img/icn-search.svg" alt="Search icon"></button></label>';
   document.querySelector(".header").insertAdjacentHTML("beforeend", str);
-  var studentList = document.querySelector(".student-list").innerHTML;
   const myInput = document.getElementById("search");
 
   document.querySelector("button").addEventListener("click", nameSearch);
   myInput.addEventListener("keyup", nameSearch);
 
-  function nameSearch() {
-    studentList = "";
-    searchName = myInput.value;
+  function nameSearch(listStudent) {
+    searchName = myInput.value.toLowerCase();
     listStudent = [];
 
-    for (let i = 0; i < list.length; i++) {
-      if (
-        list[i].name.first.toLowerCase().match(searchName.toLowerCase()) ||
-        list[i].name.last.toLowerCase().match(searchName.toLowerCase())
-      ) {
-        listStudent.push(list[i]);
-        studentList += `<li class="student-item cf">
-    <div class="student-details"><img class="avatar" src="${list[i].picture.medium}"alt="Profile Picture">
-    <h3> ${list[i].name.first} </h3>
-    <span class="email"> ${list[i].email} </span>
-    </div><div class="joined-details">
-    <span class="date"> Joined: ${list[i].registered.date}</span></div></li>`;
-        document.querySelector(".student-list").innerHTML = studentList;
-      }
-      addPagination(listStudent);
-    }
-    if (studentList === "") {
+    if (searchName.length > 0 && listStudent.length === 0) {
+      listStudent.length = 0;
       document.querySelector(
         ".student-list"
       ).innerHTML = `<li class="student-item cf"><div><h3> Sorry, no matches </h3></div></li>`;
+      addPagination(listStudent);
     }
+
+    Array.from(list).forEach(function (student) {
+      if (
+        student.name.first.toLowerCase().indexOf(searchName) !== -1 ||
+        student.name.last.toLowerCase().indexOf(searchName) !== -1
+      ) {
+        listStudent.push(student);
+        showPage(listStudent, 1);
+      }
+    });
+    addPagination(listStudent);
   }
 }
