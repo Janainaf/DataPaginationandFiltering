@@ -3,8 +3,8 @@
 ### Project 2 - Creating a Show Page with data pagination and filtering
 
 
-### For this project, I have created a page that displays 9 students from a list, with corresponding pagination.
-###  Fot the pagination, the buttons have an active class and are set to dark blue when clicked.
+#### For this project, I have created a page that displays 9 students from a list, with corresponding pagination.
+####  For the pagination, the buttons have an active class and are set to dark blue when clicked.
 
 #### I have also added some additional features, such as:
 *  An search bar with CSS;
